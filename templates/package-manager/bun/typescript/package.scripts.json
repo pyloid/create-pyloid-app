@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "dev": "run-script-os",
+    "dev:windows": "npm-run-all --parallel vite start:python",
+    "dev:linux": "npm-run-all --parallel vite start:python",
+    "dev:macos": "npm-run-all --parallel vite start:python",
+    "vite": "vite",
+    "start:python": "run-script-os",
+    "start:python:windows": ".\\venv-pyloid\\Scripts\\python .\\src-pyloid\\main.py",
+    "start:python:linux": "./venv-pyloid/bin/python ./src-pyloid/main.py",
+    "start:python:macos": "./venv-pyloid/bin/python ./src-pyloid/main.py",
+    "build": "bun run build:front && bun run build:python",
+    "build:front": "bun run tsc -b && vite build",
+    "build:python": "run-script-os",
+    "build:python:windows": ".\\venv-pyloid\\Scripts\\pyinstaller build-windows.spec",
+    "build:python:linux": "./venv-pyloid/bin/pyinstaller build-linux.spec",
+    "build:python:macos": "./venv-pyloid/bin/pyinstaller build-macos.spec",
+    "init": "bun install && bun run init:python",
+    "init:python": "run-script-os",
+    "init:python:windows": "python -m venv venv-pyloid && .\\venv-pyloid\\Scripts\\pip install -r requirements.txt",
+    "init:python:linux": "python3 -m venv venv-pyloid && ./venv-pyloid/bin/pip install -r requirements.txt",
+    "init:python:macos": "python3 -m venv venv-pyloid && ./venv-pyloid/bin/pip install -r requirements.txt"
+  }
+}

@@ -18,11 +18,12 @@ lerna-debug.log*
 *.sln
 *.sw?
 
-# node
+# front
 node_modules
 dist-ssr
 build
 *.local
+build-front
 
 # pyloid
 venv-pyloid
