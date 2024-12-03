@@ -1,11 +1,13 @@
 {
-  "name": "pyloid",
-  "version": "0.1.2",
+  "name": "create-pyloid-app",
+  "version": "0.1.5",
   "description": "create pyloid app",
   "main": "index.js",
   "author": "aesthetics-of-record",
   "license": "ISC",
-  "bin": "./index.js",
+  "bin": {
+    "create-pyloid-app": "index.js"
+  },
   "files": [
     "index.js",
     "templates"

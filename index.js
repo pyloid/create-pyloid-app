@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
@@ -114,12 +116,14 @@ async function createProject() {
     );
 
     // Print success message only when all operations complete successfully
+    const isCurrentDir = ['.', './', '.\\'].includes(projectPath);
     console.log(`
 ✨ Project created successfully!
 
 To get started:
-cd ${path.basename(projectDir)}
-${selectedPackageManager} run init
+${
+  !isCurrentDir ? `cd ${path.basename(projectDir)}\n` : ''
+}${selectedPackageManager} run init
 ${selectedPackageManager} run dev
 `);
   } catch (error) {

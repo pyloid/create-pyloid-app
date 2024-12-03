@@ -3,16 +3,19 @@
 ## Usage
 
 ```bash
-npm create pyloid
+npm create pyloid-app
 ```
+
 ```bash
-bun create pyloid
+bun create pyloid-app
 ```
+
 ```bash
-yarn create pyloid
+yarn create pyloid-app
 ```
+
 ```bash
-pnpm create pyloid
+pnpm create pyloid-app
 ```
 
 ## Contributing
