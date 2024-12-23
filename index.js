@@ -9,7 +9,7 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-
+6
 const frameworks = {
   react: 'templates/framework/react',
   vue: 'templates/framework/vue',

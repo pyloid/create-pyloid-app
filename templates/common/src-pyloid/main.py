@@ -47,7 +47,7 @@ class CustomAPI(PyloidAPI):
 
         if is_production():
             window.set_dev_tools(False)
-            window.load_file(os.path.join(get_production_path(), "build-front/index.html"))
+            window.load_file(os.path.join(get_production_path(), "dist-front/index.html"))
         else:
             window.set_dev_tools(True)
             window.load_url("http://localhost:5173")
@@ -64,7 +64,7 @@ if is_production():
         title="Pyloid Browser-production",
         js_apis=[CustomAPI()],
     )
-    window.load_file(os.path.join(get_production_path(), "build-front/index.html"))
+    window.load_file(os.path.join(get_production_path(), "dist-front/index.html"))
 else:
     window = app.create_window(
         title="Pyloid Browser-dev",

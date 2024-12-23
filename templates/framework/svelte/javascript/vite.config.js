@@ -6,6 +6,6 @@ export default defineConfig({
   base: './',
   plugins: [svelte()],
   build: {
-    outDir: 'build-front',
+    outDir: 'dist-front',
   },
 });
