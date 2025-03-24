@@ -4,6 +4,6 @@
     "vite": "vite",
     "pyloid": "uv run -p .venv ./src-pyloid/main.py",
     "build": "tsc -b && vite build && uv run -p .venv ./src-pyloid/build.py",
-    "setup": "bun install && uv venv && uv pip install -r requirements.txt"
+    "setup": "bun install && uv venv && uv add -r requirements.txt"
   }
 }
