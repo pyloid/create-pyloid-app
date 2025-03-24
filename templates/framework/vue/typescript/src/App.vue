@@ -1,4 +1,10 @@
-<script setup>
+<script setup lang="ts">
+async function createWindow() {
+  await window.pyloid.CustomAPI.createWindow()
+}
+async function closeWindow() {
+  await window.pyloid.WindowAPI.close()
+}
 </script>
 
 <template>
@@ -15,10 +21,10 @@
   </div>
   <h1>Vite + Vue + Pyloid</h1>
   <div class="card">
-    <button @click="() => window.pyloid.CustomAPI.createWindow()">
+    <button @click="createWindow">
       Create Window
     </button>
-    <button @click="() => window.pyloid.WindowAPI.close()">Close</button>
+    <button @click="closeWindow">Close</button>
     <p>
       Edit <code>src/App.vue</code> and save to test HMR
     </p>
