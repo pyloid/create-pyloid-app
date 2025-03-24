@@ -9,7 +9,7 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-6
+6;
 const frameworks = {
   react: 'templates/framework/react',
   vue: 'templates/framework/vue',
@@ -123,7 +123,7 @@ async function createProject() {
 To get started:
 ${
   !isCurrentDir ? `cd ${path.basename(projectDir)}\n` : ''
-}${selectedPackageManager} run init
+}${selectedPackageManager} run setup
 ${selectedPackageManager} run dev
 `);
   } catch (error) {
