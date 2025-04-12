@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "npm-run-all --parallel vite pyloid",
+    "vite": "vite",
+    "pyloid": "uv run -p .venv ./src-pyloid/main.py",
+    "build": "tsc -b && vite build && uv run -p .venv ./src-pyloid/build.py",
+    "setup": "{package-manager} install && uv venv && uv add -r requirements.txt",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
   },
   "devDependencies": {

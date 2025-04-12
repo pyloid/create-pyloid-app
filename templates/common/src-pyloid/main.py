@@ -1,18 +1,18 @@
 from pyloid import (
     Pyloid,
-    PyloidAPI,
-    Bridge,
     TrayEvent,
-    is_production,
-    get_production_path,
 )
-import os
+from pyloid.utils import (
+    get_production_path,
+    is_production,
+)
+from pyloid.serve import pyloid_serve
 
 app = Pyloid(app_name="Pyloid-App", single_instance=True)
 
 if is_production():
-    app.set_icon(os.path.join(get_production_path(), "src-pyloid/icons/icon.png"))
-    app.set_tray_icon(os.path.join(get_production_path(), "src-pyloid/icons/icon.png"))
+    app.set_icon(get_production_path("src-pyloid/icons/icon.png"))
+    app.set_tray_icon(get_production_path("src-pyloid/icons/icon.png"))
 else:
     app.set_icon("src-pyloid/icons/icon.png")
     app.set_tray_icon("src-pyloid/icons/icon.png")
@@ -36,43 +36,19 @@ app.set_tray_menu_items(
 )
 ####################################################################
 
-############################## Custom API ##########################
-class CustomAPI(PyloidAPI):
-    @Bridge(result=str)
-    def createWindow(self):
-        window = self.app.create_window(
-            title="Pyloid Browser-Secondary",
-            js_apis=[CustomAPI()],
-        )
-
-        if is_production():
-            window.set_dev_tools(False)
-            window.load_file(os.path.join(get_production_path(), "dist-front/index.html"))
-        else:
-            window.set_dev_tools(True)
-            window.load_url("http://localhost:5173")
-
-        window.show_and_focus()
-
-        return window.id
-
-####################################################################
-
 if is_production():
-    # production
+    url = pyloid_serve(directory="dist-front")
     window = app.create_window(
         title="Pyloid Browser-production",
-        js_apis=[CustomAPI()],
     )
-    window.load_file(os.path.join(get_production_path(), "dist-front/index.html"))
+    window.load_url(url)
 else:
     window = app.create_window(
         title="Pyloid Browser-dev",
-        js_apis=[CustomAPI()],
         dev_tools=True,
     )
     window.load_url("http://localhost:5173")
 
 window.show_and_focus()
 
-app.run()  # run
+app.run()

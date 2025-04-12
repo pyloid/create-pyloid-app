@@ -1,13 +1,5 @@
 {
   "$schema": "https://raw.githubusercontent.com/pyloid/pyloid/refs/heads/main/src/pyloid/builder/build_config.schema.json",
-  "before_build": {
-    "cleanup_patterns": [
-      "PySide6/opengl32sw.dll",
-      "PySide6/translations/*.qm",
-      "PySide6/translations/qtwebengine_locales/*.pak",
-      "!PySide6/translations/qtwebengine_locales/en-US.pak"
-    ]
-  },
   "name": "pyloid-app",
   "main_script": "src-pyloid/main.py",
   "datas": [
@@ -27,7 +19,7 @@
     "PySide6.QtUiTools",
     "PySide6.QtHelp"
   ],
-  "icon": "src-pyloid/icons/icon.ico",
+  "icon": "src-pyloid/icons/icon.png",
   "bundle": {
     "windows": "onefile",
     "macos": "app",

@@ -12,9 +12,13 @@ dist-ssr
 build
 *.local
 build-front
+dist-front
 
 # Virtual environments
 .venv
+
+# uv
+uv.lock
 
 # pyinstaller
 dist

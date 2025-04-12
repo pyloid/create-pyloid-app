@@ -3,6 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "scripts": {
+    "dev": "npm-run-all --parallel vite pyloid",
+    "vite": "vite",
+    "pyloid": "uv run -p .venv ./src-pyloid/main.py",
+    "build": "vite build && uv run -p .venv ./src-pyloid/build.py",
+    "setup": "{package-manager} install && uv venv && uv add -r requirements.txt"
+  },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

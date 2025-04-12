@@ -14,13 +14,8 @@ const frameworks = {
   react: 'templates/framework/react',
   vue: 'templates/framework/vue',
   svelte: 'templates/framework/svelte',
-};
-
-const packageManagers = {
-  npm: 'templates/package-manager/npm',
-  pnpm: 'templates/package-manager/pnpm',
-  yarn: 'templates/package-manager/yarn',
-  bun: 'templates/package-manager/bun',
+  nextjs: 'templates/framework/nextjs',
+  sveltekit: 'templates/framework/sveltekit',
 };
 
 async function createProject() {
@@ -69,6 +64,8 @@ async function createProject() {
         { name: 'react', message: 'React' },
         { name: 'vue', message: 'Vue' },
         { name: 'svelte', message: 'Svelte' },
+        { name: 'nextjs', message: 'Next.js' },
+        { name: 'sveltekit', message: 'SvelteKit' },
       ],
     });
 
@@ -93,6 +90,14 @@ async function createProject() {
     const commonDir = path.join(__dirname, 'templates/common');
     fs.cpSync(commonDir, projectDir, { recursive: true });
 
+    // .gitignore 파일 이름 변경 처리
+    if (fs.existsSync(path.join(projectDir, '_gitignore'))) {
+      fs.renameSync(
+        path.join(projectDir, '_gitignore'),
+        path.join(projectDir, '.gitignore')
+      );
+    }
+
     // Copy selected template files
     const frameworkDir = path.join(
       __dirname,
@@ -101,18 +106,11 @@ async function createProject() {
     );
     fs.cpSync(frameworkDir, projectDir, { recursive: true });
 
-    // Selected package manager template
-    const packageManagerDir = path.join(
-      __dirname,
-      packageManagers[selectedPackageManager],
-      selectedLanguage
-    );
-
-    // Merge package.json files
-    await mergePackageJsonFiles(
-      path.join(frameworkDir, 'package.json'),
-      path.join(packageManagerDir, 'package.scripts.json'),
-      path.join(projectDir, 'package.json')
+    fs.writeFileSync(
+      path.join(projectDir, 'package.json'),
+      fs
+        .readFileSync(path.join(frameworkDir, 'package.json'), 'utf8')
+        .replace('{package-manager}', selectedPackageManager)
     );
 
     // Print success message only when all operations complete successfully
@@ -134,25 +132,25 @@ ${selectedPackageManager} run dev
   }
 }
 
-function mergePackageJsonFiles(mainPath, scriptsPath, outputPath) {
-  return new Promise((resolve, reject) => {
-    try {
-      const mainContent = JSON.parse(fs.readFileSync(mainPath, 'utf8'));
-      const scriptsContent = JSON.parse(fs.readFileSync(scriptsPath, 'utf8'));
+// function mergePackageJsonFiles(mainPath, scriptsPath, outputPath) {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       const mainContent = JSON.parse(fs.readFileSync(mainPath, 'utf8'));
+//       const scriptsContent = JSON.parse(fs.readFileSync(scriptsPath, 'utf8'));
 
-      const mergedContent = {
-        ...mainContent,
-        scripts: {
-          ...(scriptsContent.scripts || {}),
-        },
-      };
+//       const mergedContent = {
+//         ...mainContent,
+//         scripts: {
+//           ...(scriptsContent.scripts || {}),
+//         },
+//       };
 
-      fs.writeFileSync(outputPath, JSON.stringify(mergedContent, null, 2));
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
+//       fs.writeFileSync(outputPath, JSON.stringify(mergedContent, null, 2));
+//       resolve();
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// }
 
 createProject();
