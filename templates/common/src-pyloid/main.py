@@ -20,7 +20,7 @@ else:
 
 ############################## Tray ################################
 def on_double_click():
-    print("Tray icon was double-clicked.")
+    app.show_and_focus_main_window()
 
 
 app.set_tray_actions(
@@ -37,7 +37,7 @@ app.set_tray_menu_items(
 ####################################################################
 
 if is_production():
-    url = pyloid_serve(directory="dist-front")
+    url = pyloid_serve(directory=get_production_path("dist-front"))
     window = app.create_window(
         title="Pyloid Browser-production",
     )

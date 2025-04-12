@@ -4,12 +4,13 @@ const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
 const { Select } = require('enquirer');
+const os = require('os');
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-6;
+
 const frameworks = {
   react: 'templates/framework/react',
   vue: 'templates/framework/vue',
@@ -97,6 +98,23 @@ async function createProject() {
         path.join(projectDir, '.gitignore')
       );
     }
+
+    // Modify build_config.json based on OS
+    const buildConfigPath = path.join(projectDir, 'build_config.json');
+    const buildConfig = JSON.parse(
+      fs.readFileSync(buildConfigPath, 'utf8')
+    );
+
+    const platform = os.platform();
+    if (platform === 'darwin') {
+      buildConfig.icon = 'src-pyloid/icons/icon.icns';
+    } else if (platform === 'win32') {
+      buildConfig.icon = 'src-pyloid/icons/icon.ico';
+    } else if (platform === 'linux') {
+      buildConfig.icon = 'src-pyloid/icons/icon.png';
+    }
+
+    fs.writeFileSync(buildConfigPath, JSON.stringify(buildConfig, null, 2));
 
     // Copy selected template files
     const frameworkDir = path.join(
