@@ -1,5 +1,4 @@
 from pyloid import (
-    Pyloid,
     TrayEvent,
 )
 from pyloid.utils import (
@@ -7,8 +6,7 @@ from pyloid.utils import (
     is_production,
 )
 from pyloid.serve import pyloid_serve
-
-app = Pyloid(app_name="Pyloid-App", single_instance=True)
+from app import app
 
 if is_production():
     app.set_icon(get_production_path("src-pyloid/icons/icon.png"))
