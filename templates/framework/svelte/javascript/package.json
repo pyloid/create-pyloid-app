@@ -10,6 +10,9 @@
     "build": "vite build && uv run -p .venv ./src-pyloid/build.py",
     "setup": "{package-manager} install && uv venv && uv add -r requirements.txt"
   },
+  "dependencies": {
+    "pyloid-js": "^0.2.0"
+  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "svelte": "^5.2.7",

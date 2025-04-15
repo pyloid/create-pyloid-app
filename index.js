@@ -101,9 +101,7 @@ async function createProject() {
 
     // Modify build_config.json based on OS
     const buildConfigPath = path.join(projectDir, 'build_config.json');
-    const buildConfig = JSON.parse(
-      fs.readFileSync(buildConfigPath, 'utf8')
-    );
+    const buildConfig = JSON.parse(fs.readFileSync(buildConfigPath, 'utf8'));
 
     const platform = os.platform();
     if (platform === 'darwin') {
@@ -128,6 +126,13 @@ async function createProject() {
       path.join(projectDir, 'package.json'),
       fs
         .readFileSync(path.join(frameworkDir, 'package.json'), 'utf8')
+        .replace('{package-manager}', selectedPackageManager)
+    );
+
+    fs.writeFileSync(
+      path.join(projectDir, 'README.md'),
+      fs
+        .readFileSync(path.join(frameworkDir, 'README.md'), 'utf8')
         .replace('{package-manager}', selectedPackageManager)
     );
 

@@ -11,7 +11,8 @@
     "setup": "{package-manager} install && uv venv && uv add -r requirements.txt"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "pyloid-js": "^0.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

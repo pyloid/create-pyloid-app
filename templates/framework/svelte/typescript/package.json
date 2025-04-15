@@ -11,6 +11,9 @@
     "setup": "{package-manager} install && uv venv && uv add -r requirements.txt",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
   },
+  "dependencies": {
+    "pyloid-js": "^0.2.0"
+  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@tsconfig/svelte": "^5.0.4",
