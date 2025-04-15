@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "vue": "^3.5.13",
-    "pyloid-js": "^0.2.0"
+    "pyloid-js": "^0.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

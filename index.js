@@ -132,7 +132,7 @@ async function createProject() {
     fs.writeFileSync(
       path.join(projectDir, 'README.md'),
       fs
-        .readFileSync(path.join(frameworkDir, 'README.md'), 'utf8')
+        .readFileSync(path.join(commonDir, 'README.md'), 'utf8')
         .replace('{package-manager}', selectedPackageManager)
     );
 

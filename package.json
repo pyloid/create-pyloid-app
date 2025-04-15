@@ -1,6 +1,6 @@
 {
   "name": "create-pyloid-app",
-  "version": "0.9.3",
+  "version": "0.9.9",
   "description": "create pyloid app",
   "main": "index.js",
   "author": "aesthetics-of-record",

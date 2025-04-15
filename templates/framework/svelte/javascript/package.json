@@ -11,7 +11,7 @@
     "setup": "{package-manager} install && uv venv && uv add -r requirements.txt"
   },
   "dependencies": {
-    "pyloid-js": "^0.2.0"
+    "pyloid-js": "^0.2.5"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
