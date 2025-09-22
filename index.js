@@ -88,7 +88,7 @@ async function createProject() {
     fs.mkdirSync(projectDir, { recursive: true });
 
     // Copy common template files
-    const commonDir = path.join(__dirname, 'templates/common');
+    const commonDir = path.join(__dirname, 'templates/common/default');
     fs.cpSync(commonDir, projectDir, { recursive: true });
 
     // .gitignore 파일 이름 변경 처리

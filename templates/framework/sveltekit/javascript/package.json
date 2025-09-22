@@ -12,7 +12,7 @@
     "setup": "{package-manager} install && uv venv && uv add -r requirements.txt"
   },
   "dependencies": {
-    "pyloid-js": "^0.2.5"
+    "pyloid-js": "^0.3.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^4.0.0",

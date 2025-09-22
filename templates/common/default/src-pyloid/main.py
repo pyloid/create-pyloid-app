@@ -7,9 +7,9 @@ from pyloid.utils import (
 )
 from pyloid.serve import pyloid_serve
 from pyloid import Pyloid
-from rpc import rpc
+from server import server
 
-app = Pyloid(app_name="Pyloid-App", single_instance=True)
+app = Pyloid(app_name="Pyloid-App", single_instance=True, server=server)
 
 if is_production():
     app.set_icon(get_production_path("src-pyloid/icons/icon.png"))
@@ -41,14 +41,12 @@ if is_production():
     url = pyloid_serve(directory=get_production_path("dist-front"))
     window = app.create_window(
         title="Pyloid Browser-production",
-        rpc=rpc,
     )
     window.load_url(url)
 else:
     window = app.create_window(
         title="Pyloid Browser-dev",
         dev_tools=True,
-        rpc=rpc,
     )
     window.load_url("http://localhost:5173")
 

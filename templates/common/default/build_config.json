@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/pyloid/pyloid/refs/heads/main/src/pyloid/builder/build_config.schema.json",
+  "$schema": "https://raw.githubusercontent.com/pyloid/pyloid-builder/refs/heads/main/src/pyloid_builder/build_config.schema.json",
   "name": "pyloid-app",
   "main_script": "src-pyloid/main.py",
   "datas": [
@@ -23,6 +23,6 @@
   "bundle": {
     "windows": "onefile",
     "macos": "app",
-    "linux": "directory"
+    "linux": "onefile"
   }
 }
