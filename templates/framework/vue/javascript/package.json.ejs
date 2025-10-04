@@ -1,0 +1,23 @@
+{
+  "name": "javascript",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm-run-all --parallel vite pyloid",
+    "vite": "vite",
+    "pyloid": "uv run -p .venv ./src-pyloid/main.py",
+    "build": "vite build && uv run -p .venv ./src-pyloid/build.py",
+    "setup": "<%=packageManager%> install && uv venv && uv sync"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "pyloid-js": "<%=pyloidjsVersion%>"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.1",
+    "run-script-os": "^1.1.6",
+    "npm-run-all": "^4.1.5"
+  }
+}

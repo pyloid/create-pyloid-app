@@ -1,21 +1,42 @@
-from pyloid_adapter.fastapi_adapter import FastAPIAdapter
-from pyloid_adapter.context import PyloidContext
-from fastapi import FastAPI, Depends
+from pyloid_adapter import BaseAdapter, PyloidContext
+from fastapi import FastAPI
+from fastapi import Request
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-def start(app: FastAPI, host: str, port: int):
-    import uvicorn
-    uvicorn.run(app, host=host, port=port)
+def start(host: str, port: int):
+	import uvicorn
+	uvicorn.run(app, host=host, port=port)
 
-server = FastAPIAdapter(app, start)
+def setup_cors():
+	app.add_middleware(
+		CORSMiddleware,
+		allow_origins=['*'],
+		allow_credentials=True,
+		allow_methods=['*'],
+		allow_headers=['*'],
+	)
 
-@app.get("/greet")
+adapter = BaseAdapter(start, setup_cors)
+
+
+@app.get('/greet')
 async def greet(name: str):
-    return f"Hello, {name}!"
+	return f'Hello, {name}!'
 
-@app.get("/create_window")
-async def create_window(ctx:PyloidContext = Depends(server.pyloid_context)):
-    win = ctx.pyloid.create_window(title="Google Window")
-    win.load_url("https://www.google.com")
-    win.show_and_focus()
+
+@app.get('/create_window')
+async def create_window(request: Request):
+	window_id = request.headers.get("X-Pyloid-Window-Id")
+ 
+	if adapter.is_pyloid(window_id):
+		print("pyloid request")
+	else:
+		print("not pyloid request")
+  
+	ctx: PyloidContext = adapter.get_context(window_id) 
+ 
+	win = ctx.pyloid.create_window(title='Google Window')
+	win.load_url('https://www.google.com')
+	win.show_and_focus()

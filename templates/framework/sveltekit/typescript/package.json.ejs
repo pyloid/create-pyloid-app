@@ -1,0 +1,28 @@
+{
+  "name": "sveltekit-ts",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:sveltekit pyloid",
+    "dev:sveltekit": "vite dev",
+    "pyloid": "uv run -p .venv ./src-pyloid/main.py",
+    "build": "vite build && uv run -p .venv ./src-pyloid/build.py",
+    "setup": "<%=packageManager%> install && uv venv && uv sync"
+  },
+  "dependencies": {
+    "pyloid-js": "<%=pyloidjsVersion%>"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^4.0.0",
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.16.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^6.0.0",
+    "run-script-os": "^1.1.6",
+    "npm-run-all": "^4.1.5"
+  }
+}

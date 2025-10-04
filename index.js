@@ -4,7 +4,35 @@ const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
 const { Select } = require('enquirer');
-const os = require('os');
+const ejs = require('ejs');
+const glob = require('glob');
+
+// Display version information
+const { version } = require('./package.json');
+console.log(`create-pyloid-app v${version}`);
+
+// Function to find all .ejs files recursively
+function findEjsFiles(dir) {
+  return glob
+    .sync('**/*.ejs', { cwd: dir })
+    .map((file) => path.join(dir, file));
+}
+
+// Function to process .ejs files
+function processEjsFiles(projectDir, templateData) {
+  const ejsFiles = findEjsFiles(projectDir);
+
+  for (const ejsFile of ejsFiles) {
+    const templateContent = fs.readFileSync(ejsFile, 'utf8');
+    const result = ejs.render(templateContent, templateData);
+
+    // Remove .ejs extension to get the final filename
+    const finalFile = ejsFile.slice(0, -4); // Remove '.ejs'
+
+    fs.writeFileSync(finalFile, result);
+    fs.unlinkSync(ejsFile); // Remove the .ejs file
+  }
+}
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -81,6 +109,15 @@ async function createProject() {
 
     const selectedLanguage = await languagePrompt.run();
 
+    // Backend selection prompt
+    const backendPrompt = new Select({
+      name: 'backend',
+      message: 'Select a backend',
+      choices: ['pyloidrpc', 'fastapi'],
+    });
+
+    const selectedBackend = await backendPrompt.run();
+
     // Convert to absolute path
     const projectDir = path.resolve(projectPath);
 
@@ -88,31 +125,19 @@ async function createProject() {
     fs.mkdirSync(projectDir, { recursive: true });
 
     // Copy common template files
-    const commonDir = path.join(__dirname, 'templates/common/default');
+    const commonDir = path.join(
+      __dirname,
+      `templates/common/${selectedBackend}`
+    );
     fs.cpSync(commonDir, projectDir, { recursive: true });
 
-    // .gitignore 파일 이름 변경 처리
+    // rename _gitignore to .gitignore
     if (fs.existsSync(path.join(projectDir, '_gitignore'))) {
       fs.renameSync(
         path.join(projectDir, '_gitignore'),
         path.join(projectDir, '.gitignore')
       );
     }
-
-    // Modify build_config.json based on OS
-    const buildConfigPath = path.join(projectDir, 'build_config.json');
-    const buildConfig = JSON.parse(fs.readFileSync(buildConfigPath, 'utf8'));
-
-    const platform = os.platform();
-    if (platform === 'darwin') {
-      buildConfig.icon = 'src-pyloid/icons/icon.icns';
-    } else if (platform === 'win32') {
-      buildConfig.icon = 'src-pyloid/icons/icon.ico';
-    } else if (platform === 'linux') {
-      buildConfig.icon = 'src-pyloid/icons/icon.png';
-    }
-
-    fs.writeFileSync(buildConfigPath, JSON.stringify(buildConfig, null, 2));
 
     // Copy selected template files
     const frameworkDir = path.join(
@@ -122,19 +147,15 @@ async function createProject() {
     );
     fs.cpSync(frameworkDir, projectDir, { recursive: true });
 
-    fs.writeFileSync(
-      path.join(projectDir, 'package.json'),
-      fs
-        .readFileSync(path.join(frameworkDir, 'package.json'), 'utf8')
-        .replace('{package-manager}', selectedPackageManager)
-    );
-
-    fs.writeFileSync(
-      path.join(projectDir, 'README.md'),
-      fs
-        .readFileSync(path.join(commonDir, 'README.md'), 'utf8')
-        .replace('{package-manager}', selectedPackageManager)
-    );
+    // Process .ejs template files
+    const templateData = {
+      packageManager: selectedPackageManager,
+      framework: selectedFramework,
+      language: selectedLanguage,
+      backend: selectedBackend,
+      pyloidjsVersion: '^0.3.1',
+    };
+    processEjsFiles(projectDir, templateData);
 
     // Print success message only when all operations complete successfully
     const isCurrentDir = ['.', './', '.\\'].includes(projectPath);
@@ -154,26 +175,5 @@ ${selectedPackageManager} run dev
     rl.close();
   }
 }
-
-// function mergePackageJsonFiles(mainPath, scriptsPath, outputPath) {
-//   return new Promise((resolve, reject) => {
-//     try {
-//       const mainContent = JSON.parse(fs.readFileSync(mainPath, 'utf8'));
-//       const scriptsContent = JSON.parse(fs.readFileSync(scriptsPath, 'utf8'));
-
-//       const mergedContent = {
-//         ...mainContent,
-//         scripts: {
-//           ...(scriptsContent.scripts || {}),
-//         },
-//       };
-
-//       fs.writeFileSync(outputPath, JSON.stringify(mergedContent, null, 2));
-//       resolve();
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
-// }
 
 createProject();

@@ -1,4 +1,0 @@
-pyloid
-pyloid-builder
-pyloid-adapter[fastapi]
-uvicorn

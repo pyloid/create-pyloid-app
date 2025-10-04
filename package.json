@@ -1,6 +1,6 @@
 {
   "name": "create-pyloid-app",
-  "version": "0.10.1",
+  "version": "0.12.1",
   "description": "create pyloid app",
   "main": "index.js",
   "author": "aesthetics-of-record",
@@ -13,7 +13,9 @@
     "templates"
   ],
   "dependencies": {
-    "enquirer": "^2.4.1"
+    "ejs": "^3.1.10",
+    "enquirer": "^2.4.1",
+    "glob": "^11.0.3"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.8"

@@ -7,9 +7,9 @@ from pyloid.utils import (
 )
 from pyloid.serve import pyloid_serve
 from pyloid import Pyloid
-from server import adapter
+from server import server
 
-app = Pyloid(app_name="Pyloid-App", single_instance=True, server=adapter)
+app = Pyloid(app_name="Pyloid-App", single_instance=True, server=server)
 
 if is_production():
     app.set_icon(get_production_path("src-pyloid/icons/icon.png"))

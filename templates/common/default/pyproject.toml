@@ -1,8 +1,0 @@
-[project]
-name = "pyloid-app"
-version = "0.1.0"
-description = "pyloid project!"
-readme = "README.md"
-
-requires-python = ">=3.9"
-dependencies = []

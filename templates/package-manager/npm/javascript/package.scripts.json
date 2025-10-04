@@ -1,9 +1,0 @@
-{
-  "scripts": {
-    "dev": "npm-run-all --parallel vite pyloid",
-    "vite": "vite",
-    "pyloid": "uv run -p .venv ./src-pyloid/main.py",
-    "build": "vite build && uv run -p .venv ./src-pyloid/build.py",
-    "setup": "npm i && uv venv && uv add -r requirements.txt"
-  }
-}
