@@ -11,13 +11,8 @@ from server import server
 
 app = Pyloid(app_name="Pyloid-App", single_instance=True, server=server)
 
-if is_production():
-    app.set_icon(get_production_path("src-pyloid/icons/icon.png"))
-    app.set_tray_icon(get_production_path("src-pyloid/icons/icon.png"))
-else:
-    app.set_icon("src-pyloid/icons/icon.png")
-    app.set_tray_icon("src-pyloid/icons/icon.png")
-
+app.set_icon(get_production_path("src-pyloid/icons/icon.png"))
+app.set_tray_icon(get_production_path("src-pyloid/icons/icon.png"))
 
 ############################## Tray ################################
 def on_double_click():
