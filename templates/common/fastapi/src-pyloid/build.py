@@ -2,6 +2,7 @@ from pyloid_builder.pyinstaller import pyinstaller
 from pyloid.utils import get_platform
 
 
+main_script = './src-pyloid/main.py'
 name = 'pyloid-app'
 dist_path = './dist'
 work_path = './build'
@@ -17,7 +18,7 @@ else:
 
 if __name__ == '__main__':
 	pyinstaller(
-		'./src-pyloid/main.py',
+		main_script,
 		[
 			f'--name={name}',
 			f'--distpath={dist_path}',
