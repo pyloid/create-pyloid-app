@@ -35,12 +35,12 @@ app.set_tray_menu_items(
 if is_production():
     url = pyloid_serve(directory=get_production_path("dist-front"))
     window = app.create_window(
-        title="Pyloid Browser-production",
+        title="Pyloid-app-production",
     )
     window.load_url(url)
 else:
     window = app.create_window(
-        title="Pyloid Browser-dev",
+        title="Pyloid-app-dev",
         dev_tools=True,
     )
     window.load_url("http://localhost:5173")

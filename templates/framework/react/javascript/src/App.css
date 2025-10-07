@@ -10,8 +10,16 @@
   text-align: center;
 }
 
+.logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin-bottom: 2em;
+}
+
 .logo {
-  height: 6em;
+  height: 8em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -21,6 +29,19 @@
 }
 .logo.pyloid:hover {
   filter: drop-shadow(0 0 2em #92e7ffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+.logo.fastapi:hover {
+  filter: drop-shadow(0 0 2em #009688aa);
+}
+
+.plus {
+  font-size: 3em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0.2em;
 }
 
 .card {
