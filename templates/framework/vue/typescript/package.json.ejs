@@ -7,8 +7,8 @@
     "dev": "npm-run-all --parallel vite pyloid",
     "vite": "vite",
     "pyloid": "uv run -p .venv ./src-pyloid/main.py",
-    "build": "vue-tsc -b && vite build && uv run -p .venv ./src-pyloid/build.py",
-    "setup": "<%=packageManager%> install && uv venv && uv add -r requirements.txt"
+    "build": "vue-tsc -b && vite build && uv run -p .venv ./src-pyloid/build/build.py",
+    "setup": "<%=packageManager%> install && uv venv && uv sync"
   },
   "dependencies": {
     "vue": "^3.5.13",

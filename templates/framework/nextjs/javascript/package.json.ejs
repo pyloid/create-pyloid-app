@@ -6,7 +6,7 @@
     "dev": "npm-run-all --parallel dev:next pyloid",
     "pyloid": "uv run -p .venv ./src-pyloid/main.py",
     "build": "npm-run-all -s build:next build:pyloid",
-    "build:pyloid": "uv run -p .venv ./src-pyloid/build.py",
+    "build:pyloid": "uv run -p .venv ./src-pyloid/build/build.py",
     "setup": "<%=packageManager%> install && uv venv && uv sync",
     "dev:next": "next dev -p 5173 --turbopack",
     "build:next": "next build",
