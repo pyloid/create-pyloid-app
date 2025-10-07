@@ -2,6 +2,8 @@
   import { ref } from 'vue';
   <% if (backend === 'pyloidrpc') { %>
   import { baseAPI, rpc } from 'pyloid-js';
+  <% } else if (backend === 'pyloidipc') { %>
+  import { baseAPI, ipc } from 'pyloid-js';
   <% } else { %>
   import { baseAPI, fetch } from 'pyloid-js';
   <% } %>
@@ -23,6 +25,8 @@
         @click="async () => {
           <% if (backend === 'pyloidrpc') { %>
           const responseMessage = await rpc.call('greet', { name: 'John' });
+          <% } else if (backend === 'pyloidipc') { %>
+          const responseMessage = await ipc.CustomIPC.echo('Hello');
           <% } else { %>
           const responseMessage = await fetch('/greet?name=John').then((res) =>
             res.text()
@@ -37,6 +41,8 @@
         @click="() => {
         <% if (backend === 'pyloidrpc') { %>
         rpc.call('create_window');
+        <% } else if (backend === 'pyloidipc') { %>
+        ipc.CustomIPC.create_window();
         <% } else { %>
         fetch('/create_window');
         <% } %>

@@ -1,6 +1,8 @@
 <script>
   <% if (backend === 'pyloidrpc') { %>
   import { baseAPI, rpc } from 'pyloid-js';
+  <% } else if (backend === 'pyloidipc') { %>
+  import { baseAPI, ipc } from 'pyloid-js';
   <% } else { %>
   import { baseAPI, fetch } from 'pyloid-js';
   <% } %>
@@ -11,6 +13,8 @@
   async function handleGreet() {
     <% if (backend === 'pyloidrpc') { %>
     message = await rpc.call('greet', { name: 'John' });
+    <% } else if (backend === 'pyloidipc') { %>
+    message = await ipc.CustomIPC.echo('Hello');
     <% } else { %>
     message = await fetch('/greet?name=John').then((res) =>
       res.text()
@@ -21,6 +25,8 @@
   function createWindow() {
     <% if (backend === 'pyloidrpc') { %>
     rpc.call('create_window');
+    <% } else if (backend === 'pyloidipc') { %>
+    ipc.CustomIPC.create_window();
     <% } else { %>
     fetch('/create_window');
     <% } %>

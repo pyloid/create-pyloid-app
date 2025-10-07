@@ -3,6 +3,8 @@
 import { useState } from 'react';
 <% if (backend === 'pyloidrpc') { %>
 import { baseAPI, rpc } from 'pyloid-js';
+<% } else if (backend === 'pyloidipc') { %>
+import { baseAPI, ipc } from 'pyloid-js';
 <% } else { %>
 import { baseAPI, fetch } from 'pyloid-js';
 <% } %>
@@ -28,6 +30,8 @@ export default function Home() {
           onClick={async () => {
             <% if (backend === 'pyloidrpc') { %>
             const message = await rpc.call('greet', { name: 'John' });
+            <% } else if (backend === 'pyloidipc') { %>
+            const message = await ipc.CustomIPC.echo('Hello');
             <% } else { %>
             const message = await fetch('/greet?name=John').then((res) =>
               res.text()
@@ -43,6 +47,8 @@ export default function Home() {
           onClick={async () => {
             <% if (backend === 'pyloidrpc') { %>
             await rpc.call('create_window');
+            <% } else if (backend === 'pyloidipc') { %>
+            await ipc.CustomIPC.create_window();
             <% } else { %>
             await fetch('/create_window');
             <% } %>

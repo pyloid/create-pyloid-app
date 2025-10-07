@@ -1,4 +1,5 @@
-from pyloid_adapter import BaseAdapter, PyloidContext
+from pyloid_adapter.base_adapter import BaseAdapter
+from pyloid_adapter.context import PyloidContext
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware

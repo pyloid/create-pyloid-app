@@ -113,7 +113,7 @@ async function createProject() {
     const backendPrompt = new Select({
       name: 'backend',
       message: 'Select a backend',
-      choices: ['pyloidrpc', 'fastapi'],
+      choices: ['pyloidrpc', 'pyloidipc', 'fastapi'],
     });
 
     const selectedBackend = await backendPrompt.run();
@@ -153,7 +153,7 @@ async function createProject() {
       framework: selectedFramework,
       language: selectedLanguage,
       backend: selectedBackend,
-      pyloidjsVersion: '^0.3.1',
+      pyloidjsVersion: '^0.3.3',
     };
     processEjsFiles(projectDir, templateData);
 
