@@ -23,10 +23,6 @@ pnpm create pyloid-app
 - Add Package Manager
 - Add Framework
 
-### Adding Package Manager
-
-templates/package-manager/{package-manager}/{language}/package.scripts.json
-
 ### Adding Framework
 
 templates/framework/{framework}/{language}/
@@ -61,18 +57,6 @@ export default defineConfig({
 });
 ```
 
-4. update src/main.tsx
+4. add pyloid_icon.png
 
-```tsx
-document.addEventListener('pyloidReady', () => {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <App />
-    </StrictMode>
-  );
-});
-```
-
-5. add pyloid_icon.png
-
-6. update App.tsx
+5. update App.tsx
