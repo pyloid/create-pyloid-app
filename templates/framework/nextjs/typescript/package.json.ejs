@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel dev:next pyloid",
+    "dev:watch": "npm-run-all --parallel dev:next pyloid:watch",
     "pyloid": "uv run -p .venv ./src-pyloid/main.py",
+    "pyloid:watch": "uv run pyloid-watcher --path ./src-pyloid --pattern \"*.py\" --command \"uv run ./src-pyloid/main.py\"",
     "build": "npm-run-all -s build:next build:pyloid",
     "build:pyloid": "uv run -p .venv ./src-pyloid/build/build.py",
     "setup": "<%=packageManager%> install && uv venv && uv sync",

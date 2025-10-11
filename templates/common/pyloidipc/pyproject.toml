@@ -13,5 +13,6 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pyloid-builder",
+    "pyloid-watcher",
     "ruff",
 ]
